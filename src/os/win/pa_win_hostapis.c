@@ -98,3 +98,20 @@ PaUtilHostApiInitializer *paHostApiInitializers[] =
 
         0   /* NULL terminated array */
     };
+
+__declspec(dllexport) PaUtilHostApiInitializer ** Pa_Win_GetHostApiInitializers()
+{
+    return paHostApiInitializers;
+}
+
+__declspec(dllexport) const char * Pa_Win_GetHostApiName(PaUtilHostApiInitializer *init)
+{
+    if (init == 0)                     return "NULL";
+    if (init == PaWinMme_Initialize)   return "MME";
+    if (init == PaWinDs_Initialize)    return "Windows DirectSound";
+    if (init == PaAsio_Initialize)     return "ASIO";
+    if (init == PaWasapi_Initialize)   return "Windows WASAPI";
+    if (init == PaWinWdm_Initialize)   return "Windows WDM-KS";
+    if (init == PaSkeleton_Initialize) return "skeleton implementation";
+    return "Unknown HostAPI";
+}
