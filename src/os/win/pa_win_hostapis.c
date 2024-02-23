@@ -112,11 +112,23 @@ __declspec(dllexport) PaUtilHostApiInitializer ** Pa_Win_GetHostApiInitializers(
 __declspec(dllexport) const char * Pa_Win_GetHostApiName(PaUtilHostApiInitializer *init)
 {
     if (init == 0)                     return "NULL";
+#if PA_USE_WMME
     if (init == PaWinMme_Initialize)   return "MME";
+#endif
+#if PA_USE_DS
     if (init == PaWinDs_Initialize)    return "Windows DirectSound";
+#endif
+#if PA_USE_ASIO
     if (init == PaAsio_Initialize)     return "ASIO";
+#endif
+#if PA_USE_WASAPI
     if (init == PaWasapi_Initialize)   return "Windows WASAPI";
+#endif
+#if PA_USE_WDMKS
     if (init == PaWinWdm_Initialize)   return "Windows WDM-KS";
+#endif
+#if PA_USE_SKELETON
     if (init == PaSkeleton_Initialize) return "skeleton implementation";
+#endif
     return "Unknown HostAPI";
 }
