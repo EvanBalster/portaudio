@@ -49,13 +49,13 @@ jobs:
               -DASIO_SDK_ZIP_PATH="asiosdk.zip"
           - name: macOS Clang
             os: macOS-latest
-            vcpkg_triplet: x64-osx
+            vcpkg_triplet: arm64-osx
             cmake_generator: "Unix Makefiles"
             cmake_options:
               -DCMAKE_FRAMEWORK=OFF
           - name: macOS Clang framework
             os: macOS-latest
-            vcpkg_triplet: x64-osx
+            vcpkg_triplet: arm64-osx
             cmake_generator: "Unix Makefiles"
             cmake_options:
               -DCMAKE_FRAMEWORK=ON
@@ -73,7 +73,7 @@ jobs:
         sudo apt-get install libasound2-dev libpulse-dev libsndio-dev ${{ matrix.dependencies_extras }}
       if: matrix.os == 'ubuntu-latest'
     - name: "Set up ASIO SDK cache [Windows/MinGW]"
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       if: matrix.asio_sdk_cache_path != null
       with:
         path: ${{ matrix.asio_sdk_cache_path }}
